@@ -1,26 +1,22 @@
-import { useEffect, useState } from "react";
-import EventItem from "./EventItem";
-
-const EventList = () => {
-  const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/events")
-      .then((res) => res.json())
-      .then((data) => setEvents(data))
-      .catch((err) => console.error("Error fetching events:", err));
-  }, []);
-
+const EventItem = ({ event }) => {
   return (
-    <div>
-      <h2>All Events</h2>
-      {events.length > 0 ? (
-        events.map((event) => <EventItem key={event._id} event={event} />)
-      ) : (
-        <p>No events found.</p>
-      )}
+    <div
+      style={{
+        border: "1px solid #ddd",
+        padding: "10px",
+        margin: "10px",
+        borderRadius: "5px",
+      }}
+    >
+      <h3>{event.name}</h3>
+      <p>
+        <strong>Date:</strong> {event.date}
+      </p>
+      <p>
+        <strong>Location:</strong> {event.location}
+      </p>
     </div>
   );
 };
 
-export default EventList;
+export default EventItem;
